@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "target": "esnext",
+    "module": "esnext",
+    "lib": [
+      "dom",
+      "esnext",
+      "ES2019"
+    ],
+    "rootDir": ".",
+    "outDir": "lib",
+    "downlevelIteration": true,
+    "removeComments": false,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react"
+  }
+}
