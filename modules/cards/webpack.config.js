@@ -56,7 +56,7 @@ module.exports = {
             name: 'remoteModules',
             filename: 'remoteEntry.js',
             exposes: {
-                './Cards': './src/components/cards'
+                './Cards': './src/root',
             },
             shared: {
                 react: {

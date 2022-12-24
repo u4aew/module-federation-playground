@@ -1,0 +1,10 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "maskNumber": "card 1",
+      "cardholder": "Mike Smith",
+      "expireDate": "06/23"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import config from '../../../config';
 import axios from 'axios';
 
 export enum Fetch {
@@ -31,12 +32,14 @@ const initialState: SliceState = {
  * Получить информацию о картах
  */
 export const getCards = createAsyncThunk<
-  { form: {} },
+  // Return type of the payload creator
+  any,
+  // First argument to the payload creator
   string,
-  { rejectValue: ResponseError }
+  any
 >('modules/cards', async () => {
   try {
-    const { data } = await axios.get('modules/cards/');
+    const { data } = await axios.get(config.routes.cards);
     return data;
   } catch (error) {
      alert(error.message)
@@ -57,11 +60,12 @@ const slice = createSlice({
       state.error = null;
     });
     builder.addCase(getCards.fulfilled, (state, action) => {
-      state.cards = []
+      state.cards = action.payload
       state.fetchingState = Fetch.Fulfilled;
     });
     builder.addCase(getCards.rejected, (state, action) => {
       state.fetchingState = Fetch.Rejected;
+      // @ts-ignore
       state.error = action.error;
     });
   },
