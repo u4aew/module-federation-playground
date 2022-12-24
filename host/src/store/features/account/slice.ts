@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import config from '../../../config';
 import axios from 'axios';
 
 export enum Fetch {
@@ -16,13 +17,13 @@ export interface ResponseError {
 }
 
 interface SliceState {
-  userName: string | null;
+  user: {} | null;
   fetchingState: Fetch;
   error: ResponseError | null;
 }
 
 const initialState: SliceState = {
-  userName: null,
+  user: null,
   fetchingState: Fetch.Idle,
   error: null,
 };
@@ -31,12 +32,14 @@ const initialState: SliceState = {
  * Получить информацию о пользователе
  */
 export const getUserInfo = createAsyncThunk<
-  { form: {} },
+  // Return type of the payload creator
+  any,
+  // First argument to the payload creator
   string,
-  { rejectValue: ResponseError }
+  any
 >('host/user', async () => {
   try {
-    const { data } = await axios.get('host/user/');
+    const { data } = await axios.get(config.routes.user);
     return data;
   } catch (error) {
      alert(error.message)
@@ -57,11 +60,13 @@ const slice = createSlice({
       state.error = null;
     });
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
-      state.userName = 'sdas'
+      console.log(action.payload, 'action.payload');
+      state.user = action.payload;
       state.fetchingState = Fetch.Fulfilled;
     });
     builder.addCase(getUserInfo.rejected, (state, action) => {
       state.fetchingState = Fetch.Rejected;
+      // @ts-ignore
       state.error = action.error;
     });
   },

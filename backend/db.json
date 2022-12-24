@@ -6,5 +6,10 @@
       "cardholder": "Mike Smith",
       "expireDate": "06/23"
     }
-  ]
+  ],
+  "user": {
+    "id": 1,
+    "name": "Mike Smith",
+    "email": ""
+  }
 }

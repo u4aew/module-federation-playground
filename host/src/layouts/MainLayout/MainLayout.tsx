@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Logo from "@host/components/Logo/Logo";
 import Nav from "@host/components/Nav/Nav";
 import InfoUser from "@host/components/InfoUser/InfoUser";
+import {getUserInfo} from "@host/store/features/account/slice";
+import {useDispatch} from "react-redux";
 
 import {
   Layout,
@@ -27,6 +29,18 @@ type Props = {
 
 
 const MainLayout = ({ children, title, desc }: Props): JSX.Element => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const loadUser = async () => {
+      const fetch = await dispatch(getUserInfo('test'));
+    }
+    loadUser();
+
+    window.addEventListener('loadCards', () => {
+      console.log('loadCards host')
+    });
+  }, [])
+
   return <Layout>
     <Wrapper>
       <Content>
