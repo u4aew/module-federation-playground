@@ -3,7 +3,7 @@ import React from 'react';
 import MainLayout from '@host/layouts/MainLayout/MainLayout';
 import ErrorBoundary from "@host/ErrorBoundary";
 
-import { Cols, ColsItem } from "./Main.style";
+import { Cols, ColsItem, AppWrapper, AppName } from "./Main.style";
 
 const Cards = React.lazy(() => import("remote-modules/Cards"));
 
@@ -12,9 +12,14 @@ export const Main = () => (
     <React.Suspense fallback="Loading...">
       <Cols>
         <ColsItem>
-          <ErrorBoundary>
-            <Cards/>
-          </ErrorBoundary>
+          <AppWrapper>
+            <AppName>
+              <a target="_blank" href="https://microfrontend.fancy-app.site/apps/cards/">App cards</a> - /api/cards/list
+            </AppName>
+            <ErrorBoundary>
+              <Cards/>
+            </ErrorBoundary>
+          </AppWrapper>
         </ColsItem>
         <ColsItem>
         </ColsItem>

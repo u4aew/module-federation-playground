@@ -72,7 +72,7 @@ module.exports = {
         new ModuleFederationPlugin({
             remotes: {
                 "remote-modules": isProduction
-                    ? "remoteModules@https://microfrontend.fancy-app.site/cards/remoteEntry.js"
+                    ? "remoteModules@https://microfrontend.fancy-app.site/apps/cards/remoteEntry.js"
                     : "remoteModules@http://localhost:3001/remoteEntry.js"
             },
             shared: {
