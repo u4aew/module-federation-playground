@@ -9,7 +9,9 @@ Can perform tasks related to host application navigation, header, layout.
 Can perform tasks associated with user cards.
 
 Host app
+
 ![Host app](img/host.png)
 
 Card app
+
 ![Host app](img/card.png)
