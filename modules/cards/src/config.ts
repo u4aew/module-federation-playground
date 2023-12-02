@@ -1,8 +1,8 @@
-const MAIN_PATH = 'http://localhost:3000';
+const MAIN_PATH = 'https://microfrontend.fancy-app.site/api';
 
 const config = {
   routes: {
-    cards: `${MAIN_PATH}/cards`,
+    cards: `${MAIN_PATH}/cards/list`,
   }
 }
 

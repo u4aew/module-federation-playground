@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "json-server --watch db.json"
+    "server": "json-server --watch db.json --routes routes.json --port 5000"
   },
   "author": "",
   "license": "ISC",

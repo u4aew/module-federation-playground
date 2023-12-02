@@ -1,15 +1,17 @@
 {
-  "cards": [
-    {
+  "common_user": {
+    "user": {
       "id": 1,
-      "maskNumber": "card 1",
-      "cardholder": "Mike Smith",
-      "expireDate": "06/23"
+      "name": "Mike Smith",
+      "email": ""
     }
-  ],
-  "user": {
-    "id": 1,
-    "name": "Mike Smith",
-    "email": ""
-  }
+  },
+  "cards_list": [
+    {
+      "pan": "4111 3424 **** 3425",
+      "expiry": "09/27",
+      "name": "John Smith",
+      "ps": "VISA"
+    }
+  ]
 }

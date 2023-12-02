@@ -3,7 +3,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
 const deps = require("./package.json").dependencies;
+const isProduction = process.env.NODE_ENV === 'production';
 
+console.log(process.env.NODE_ENV, 'process.env.NODE_ENV')
 
 module.exports = {
     entry: "./src/index.js",
@@ -41,6 +43,23 @@ module.exports = {
                 test: /\.(png|gif|jpg|svg)$/,
                 loader: "url-loader",
             },
+            {
+                test: /\.module\.scss$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[name]__[local]___[hash:base64:5]',
+                                // Add other module options here if needed
+                            },
+                            sourceMap: true, // Add this if you want source maps
+                        },
+                    },
+                    'sass-loader',
+                ],
+            },
         ],
     },
     resolve: {
@@ -52,7 +71,9 @@ module.exports = {
     plugins: [
         new ModuleFederationPlugin({
             remotes: {
-                "remote-modules": "remoteModules@http://localhost:3001/remoteEntry.js"
+                "remote-modules": isProduction
+                    ? "remoteModules@https://microfrontend.fancy-app.site/cards/remoteEntry.js"
+                    : "remoteModules@http://localhost:3001/remoteEntry.js"
             },
             shared: {
                 react: {

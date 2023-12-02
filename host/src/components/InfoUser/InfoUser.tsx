@@ -35,9 +35,6 @@ const InfoUser = () => {
     </InfoSide>
     <InfoMain>
       <InfoSummary>
-        <InfoSummarySide>
-          <InfoAvatar src={'https://thispersondoesnotexist.com/image'}/>
-        </InfoSummarySide>
         <InfoSummaryMain>
           <InfoTitle>Andrew</InfoTitle>
           <InfoDesc>

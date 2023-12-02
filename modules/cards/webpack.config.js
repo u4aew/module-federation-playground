@@ -40,6 +40,23 @@ module.exports = {
                 test: /\.(png|gif|jpg|svg)$/,
                 loader: "url-loader",
             },
+            {
+                test: /\.module\.scss$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[name]__[local]___[hash:base64:5]',
+                                // Add other module options here if needed
+                            },
+                            sourceMap: true, // Add this if you want source maps
+                        },
+                    },
+                    'sass-loader',
+                ],
+            },
         ],
     },
     resolve: {

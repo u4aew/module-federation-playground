@@ -1,26 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Wrapper, Body, Footer, Header, Main, Title, Side } from "./CardsManager.style";
-import PreviewCard from "@modules/cards/components/PreviewCard/PreviewCard";
+import {useDispatch, useSelector} from 'react-redux';
 import {userCardsSelector} from "@modules/cards/store/features/cards/selectors";
+import styles from './style.module.scss'
+import PreviewCard from "@modules/cards/components/PreviewCard/PreviewCard";
 
 export const CardsManager = (): JSX.Element => {
-  const cards = useSelector(userCardsSelector);
-
-  console.log(cards)
-
-  return <Wrapper>
-    <Header>
-      <Title>
-        Cards
-      </Title>
-    </Header>
-    <Body>
-      <Main>
-        <PreviewCard/>
-      </Main>
-      <Side></Side>
-    </Body>
-    <Footer></Footer>
-  </Wrapper>
+    const cards = useSelector(userCardsSelector);
+    return <div className={styles.test}>
+        <PreviewCard />
+    </div>
 }

@@ -32,6 +32,7 @@ const MainLayout = ({ children, title, desc }: Props): JSX.Element => {
   const dispatch = useDispatch();
   useEffect(() => {
     const loadUser = async () => {
+      // @ts-ignore
       const fetch = await dispatch(getUserInfo('test'));
     }
     loadUser();

@@ -11,6 +11,7 @@ const App = (): JSX.Element => {
   });
   useEffect( () => {
     const load = async () => {
+      // @ts-ignore
       await dispatch(getCards('test'));
       const event = new Event('loadCards');
       window.dispatchEvent(event);
