@@ -1,0 +1,14 @@
+.link {
+  display: block;
+  position: relative;
+  padding: 10px 10px 10px 55px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #C7C7C7;
+  font-size: 14px;
+  &:hover {
+    color: #197BBD;
+    background-color: #F0F7FF;
+  }
+}

@@ -1,11 +1,6 @@
 import React from 'react';
-
 import MainLayout from '@host/layouts/MainLayout/MainLayout';
-import ErrorBoundary from "@host/ErrorBoundary";
-
-import { Cols, ColsItem, AppWrapper, AppName } from "./Main.style";
-
-const Cards = React.lazy(() => import("remote-modules/Cards"));
+import { Cols, ColsItem, AppWrapper } from "./Main.style";
 
 export const Main = () => (
   <MainLayout title='Weekly sumup' desc='Get summary of your weekly online transactions here.'>
@@ -13,12 +8,7 @@ export const Main = () => (
       <Cols>
         <ColsItem>
           <AppWrapper>
-            <AppName>
-              <a target="_blank" href="https://microfrontend.fancy-app.site/apps/cards/">App cards</a> - /api/cards/list
-            </AppName>
-            <ErrorBoundary>
-              <Cards/>
-            </ErrorBoundary>
+              Overview
           </AppWrapper>
         </ColsItem>
         <ColsItem>

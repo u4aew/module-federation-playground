@@ -1,6 +1,6 @@
 import React from "react";
 import { List, ListIcon, ListIconHover, ListItem, ListLink } from "./Nav.style";
-
+import { Link } from 'react-router-dom';
 import overview from './icons/overview.svg'
 import overviewHover from './icons/overview-hover.svg'
 
@@ -19,13 +19,13 @@ import goalsHover from './icons/goals-hover.svg'
 
 import settings from './icons/settings.svg'
 import settingsHover from './icons/settings-hover.svg'
-
+import styles from './style.module.scss'
 
 const Nav = (): JSX.Element => {
   return <div>
     <List>
       <ListItem>
-        <ListLink href="#">
+        <Link className={styles.link} to="/">
           <ListIcon>
             <img src={overview} alt=""/>
           </ListIcon>
@@ -33,10 +33,10 @@ const Nav = (): JSX.Element => {
             <img src={overviewHover} alt=""/>
           </ListIconHover>
           Overview
-        </ListLink>
+        </Link>
       </ListItem>
       <ListItem>
-        <ListLink href="#">
+        <Link className={styles.link} to="/transactions">
           <ListIcon>
             <img src={transaction} alt=""/>
           </ListIcon>
@@ -44,7 +44,7 @@ const Nav = (): JSX.Element => {
             <img src={transactionHover} alt=""/>
           </ListIconHover>
           Transaction
-        </ListLink>
+        </Link>
       </ListItem>
       <ListItem>
         <ListLink href="#">
