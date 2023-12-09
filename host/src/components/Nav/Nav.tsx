@@ -36,6 +36,17 @@ const Nav = (): JSX.Element => {
         </Link>
       </ListItem>
       <ListItem>
+        <Link className={styles.link} to="/cards">
+          <ListIcon>
+            <img src={transaction} alt=""/>
+          </ListIcon>
+          <ListIconHover>
+            <img src={transactionHover} alt=""/>
+          </ListIconHover>
+          Cards
+        </Link>
+      </ListItem>
+      <ListItem>
         <Link className={styles.link} to="/transactions">
           <ListIcon>
             <img src={transaction} alt=""/>
@@ -43,19 +54,8 @@ const Nav = (): JSX.Element => {
           <ListIconHover>
             <img src={transactionHover} alt=""/>
           </ListIconHover>
-          Transaction
+          Transactions
         </Link>
-      </ListItem>
-      <ListItem>
-        <ListLink href="#">
-          <ListIcon>
-            <img src={cards} alt=""/>
-          </ListIcon>
-          <ListIconHover>
-            <img src={cardsHover} alt=""/>
-          </ListIconHover>
-          Cards
-        </ListLink>
       </ListItem>
       <ListItem>
         <ListLink href="#">

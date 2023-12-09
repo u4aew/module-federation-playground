@@ -1,16 +1,13 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const deps = require("./package.json").dependencies;
-const isProduction = process.env.NODE_ENV === 'production';
-
-console.log(process.env.NODE_ENV, 'process.env.NODE_ENV')
+const deps = require('./package.json').dependencies;
 
 module.exports = {
     entry: "./src/index.js",
     devServer: {
-        port: 3002,
+        port: 3003,
     },
     module: {
         rules: [
@@ -42,6 +39,9 @@ module.exports = {
             {
                 test: /\.(png|gif|jpg|svg)$/,
                 loader: "url-loader",
+                issuer: {
+                    not: [/\.module\.scss$/],
+                },
             },
             {
                 test: /\.module\.scss$/,
@@ -63,29 +63,29 @@ module.exports = {
         ],
     },
     resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
         alias: {
-            '@host': path.resolve(__dirname, 'src'),
-        },
-        extensions: ['.tsx', '.ts', '.js']
+            '@modules/transactions': path.join(__dirname, './src'),
+        }
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'src', 'index.html')
+        }),
         new ModuleFederationPlugin({
-            remotes: {
-                "remote-modules-transactions": isProduction
-                    ? "remoteModules@https://microfrontend.fancy-app.site/apps/transactions/remoteEntry.js"
-                    : "remoteModules@http://localhost:3003/remoteEntry.js",
-                "remote-modules": isProduction
-                    ? "remoteModules@https://microfrontend.fancy-app.site/apps/cards/remoteEntry.js"
-                    : "remoteModules@http://localhost:3001/remoteEntry.js",
+            name: 'remoteModules',
+            filename: 'remoteEntry.js',
+            exposes: {
+                './Transactions': './src/root',
             },
             shared: {
                 react: {
-                    singleton: true,
                     requiredVersion: deps.react,
-                },
-                "react-dom": {
                     singleton: true,
-                    requiredVersion: deps["react-dom"],
+                },
+                'react-dom': {
+                    requiredVersion: deps['react-dom'],
+                    singleton: true,
                 },
                 "react-redux": {
                     singleton: true,
@@ -95,10 +95,7 @@ module.exports = {
                     singleton: true,
                     requiredVersion: deps["axios"],
                 },
-            }
-        }),
-        new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'src', 'index.html')
+            },
         })
     ],
     output: {

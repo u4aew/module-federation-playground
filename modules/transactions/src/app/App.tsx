@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import CardsManager from "@modules/cards/components/CardsManager";
-import { getCards } from "@modules/cards/store/features/cards/slice";
+import CardsManager from "@modules/transactions/components/CardsManager";
+import { getCards } from "@modules/transactions/store/features/cards/slice";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
