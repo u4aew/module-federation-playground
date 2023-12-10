@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import CardsManager from "@modules/cards/components/CardsManager";
+import CardList from "@modules/cards/pages/CardsList/CardList";
+import CardDetail from "@modules/cards/pages/CardDetail/CardDetail";
 import { getCards } from "@modules/cards/store/features/cards/slice";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -19,10 +20,10 @@ const App = (): JSX.Element => {
 
   return (
       <Router>
-        <Routes>
-          <Route path={'/*'} element={<CardsManager/>} />
-          {/* Add more routes as needed */}
-        </Routes>
+          <Routes>
+              <Route path="/cards" element={<CardList />}/>
+              <Route path="/cards/:cardId" element={<CardDetail />}/>
+          </Routes>
       </Router>
   );
 }

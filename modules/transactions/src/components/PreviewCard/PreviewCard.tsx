@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from './style.module.scss'
-
 type Props = {
     pan: string,
     expiry: string,
@@ -8,7 +7,7 @@ type Props = {
     ps: string
 }
 
-const PreviewCard = ({ps, expiry, name, pan}: Props) => {
+const PreviewCard = ({expiry, name, pan}: Props) => {
   return <div className={styles.card}>
       <div className={styles.main}>
           <div className={styles.pan}>

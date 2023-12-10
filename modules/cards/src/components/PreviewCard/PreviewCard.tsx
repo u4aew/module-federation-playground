@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import styles from './style.module.scss'
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 }
 
 const PreviewCard = ({ps, expiry, name, pan}: Props) => {
-  return <div className={styles.card}>
+  return <Link to='/cards/34' className={styles.card}>
       <div className={styles.main}>
           <div className={styles.pan}>
               {pan}
@@ -36,7 +37,7 @@ const PreviewCard = ({ps, expiry, name, pan}: Props) => {
               </div>
           </div>
       </div>
-  </div>
+  </Link>
 }
 
 export default PreviewCard
