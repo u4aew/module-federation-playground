@@ -83,6 +83,10 @@ module.exports = {
                     singleton: true,
                     requiredVersion: deps.react,
                 },
+                "antd": {
+                    singleton: true,
+                    requiredVersion: deps["antd"],
+                },
                 "react-dom": {
                     singleton: true,
                     requiredVersion: deps["react-dom"],
