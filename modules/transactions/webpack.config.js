@@ -73,7 +73,7 @@ module.exports = {
             template: path.join(__dirname, 'src', 'index.html')
         }),
         new ModuleFederationPlugin({
-            name: 'remoteModules',
+            name: 'remoteModulesTransactions',
             filename: 'remoteEntry.js',
             exposes: {
                 './Transactions': './src/root',

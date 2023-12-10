@@ -5,7 +5,7 @@ import ErrorBoundary from "@host/ErrorBoundary";
 
 import { Cols, ColsItem, AppWrapper, AppName } from "./Transactions.style";
 
-const Cards = React.lazy(() => import("remote-modules/Cards"));
+const Cards = React.lazy(() => import("remote-modules-cards/Cards"));
 
 export const Transactions = () => (
   <MainLayout title='Weekly sumup' desc='Get summary of your weekly online transactions here.'>
