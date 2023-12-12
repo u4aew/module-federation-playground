@@ -1,4 +1,5 @@
 {
   "/common/user": "/common_user/",
-  "/cards/list": "/cards_list/"
+  "/cards/list": "/cards_list/",
+  "/transactions/list": "/transactions_list/"
 }

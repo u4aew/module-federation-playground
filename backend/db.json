@@ -3,7 +3,9 @@
     "user": {
       "id": 1,
       "name": "Mike Smith",
-      "email": ""
+      "email": "",
+      "role": "ADMIN",
+      "theme" : "DARK"
     }
   },
   "cards_list": [
@@ -20,6 +22,20 @@
       "expiry": "09/29",
       "name": "John Smith",
       "ps": "VISA"
+    }
+  ],
+  "transaction_list": [
+    {
+      "id": 1,
+      "date": "01.02.2023 16:05",
+      "sum": "100.23",
+      "currency": "USD"
+    },
+    {
+      "id": 2,
+      "date": "01.02.2023 16:05",
+      "sum": "100.23",
+      "currency": "USD"
     }
   ]
 }

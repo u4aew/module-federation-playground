@@ -1,12 +1,53 @@
 import React from "react";
-import CardsManager from "@modules/cards/components/CardsManager";
-import {Outlet, Route, Routes} from 'react-router-dom';
+import { Space, Table, Tag } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+import {useSelector} from "react-redux";
+import {userCardsSelector} from "@modules/cards/store/features/cards/selectors";
+import {Link} from "react-router-dom";
 
-const CardList = () => {
+interface DataType {
+    key: string;
+    pan: string;
+    name: string;
+}
+
+const columns: ColumnsType<DataType> = [
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        render: (text) => <a>{text}</a>,
+    },
+    {
+        title: 'Pan',
+        dataIndex: 'pan',
+        key: 'pan',
+        render: (text) => <a>{text}</a>,
+    },
+    {
+        title: 'Action',
+        key: 'action',
+        render: (value, record) => (
+            <Space size="middle">
+                <Link to={`/cards/${value.key}`}>Details</Link>
+            </Space>
+        ),
+    },
+];
+
+const CardsList = () => {
+    const { cards: { cards } } = useSelector(userCardsSelector);
+
+    if (!cards) {
+        return <div>Loading...</div>
+    }
     return <div>
-        <CardsManager/>
-        <Outlet/>
+        <Table columns={columns} dataSource={cards.map(({id, name, pan}) => ({
+            key: id,
+            name,
+            pan
+        }))} />
     </div>
 }
 
-export default CardList
+export default CardsList
