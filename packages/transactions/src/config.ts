@@ -2,7 +2,7 @@ const MAIN_PATH = 'https://microfrontend.fancy-app.site/api';
 
 const config = {
   routes: {
-    cards: `${MAIN_PATH}/cards/list`,
+    transactions: `${MAIN_PATH}/transactions/list`,
   },
 };
 

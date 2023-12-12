@@ -1,5 +1,7 @@
 {
   "/common/user": "/common_user/",
   "/cards/list": "/cards_list/",
-  "/transactions/list": "/transactions_list/"
+  "/cards/details": "/cards_details/",
+  "/transactions/list": "/transactions_list/",
+  "/transactions/details": "/transactions_details/"
 }

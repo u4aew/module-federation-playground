@@ -36,9 +36,7 @@ const columns: ColumnsType<DataType> = [
 ];
 
 const CardsList = () => {
-  const {
-    cards: { cards },
-  } = useSelector(userCardsSelector);
+  const { cards } = useSelector(userCardsSelector);
 
   if (!cards) {
     return <div>Loading...</div>;

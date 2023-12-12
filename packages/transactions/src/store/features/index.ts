@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import cards from './cards/slice';
+import transactions from './transactions/slice';
 
 const rootReducer = combineReducers({
-  cards,
+  transactions,
 });
 
 export default rootReducer;

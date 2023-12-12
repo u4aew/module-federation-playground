@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import CardsManager from '@modules/transactions/components/CardsManager';
-import { getCards } from '@modules/transactions/store/features/cards/slice';
+import { getTransactions } from '@modules/transactions/store/features/transactions/slice';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -10,8 +10,8 @@ const App = (): JSX.Element => {
   useEffect(() => {
     const load = async () => {
       // @ts-ignore
-      await dispatch(getCards('test'));
-      const event = new Event('loadCards');
+      await dispatch(getTransactions('test'));
+      const event = new Event('loadTransactions');
       window.dispatchEvent(event);
     };
     load();

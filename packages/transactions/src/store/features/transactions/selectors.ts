@@ -6,4 +6,4 @@ import { createSelector } from '@reduxjs/toolkit';
  */
 
 // @ts-ignore
-export const userCardsSelector = (state): state => state;
+export const userTransactionsSelector = (state): state => state.transactions;

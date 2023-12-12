@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import configureStore from './store/configureStore';
 import App from './root/App';
 
 const store = configureStore();
 // @ts-ignore
-ReactDom.render(<App store={store} />);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App store={store} />);

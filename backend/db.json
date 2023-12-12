@@ -24,7 +24,8 @@
       "ps": "VISA"
     }
   ],
-  "transaction_list": [
+  "cards_details": {},
+  "transactions_list": [
     {
       "id": 1,
       "date": "01.02.2023 16:05",
@@ -37,5 +38,6 @@
       "sum": "100.23",
       "currency": "USD"
     }
-  ]
+  ],
+  "transactions_details": {}
 }

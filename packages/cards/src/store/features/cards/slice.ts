@@ -17,12 +17,14 @@ export interface ResponseError {
 
 interface SliceState {
   cards: string[] | null;
+  details: null | object;
   fetchingState: Fetch;
   error: ResponseError | null;
 }
 
 const initialState: SliceState = {
   cards: null,
+  details: null,
   fetchingState: Fetch.Idle,
   error: null,
 };
