@@ -6,12 +6,12 @@ interface Props {
   store: object;
 }
 
-const App = ({store}): JSX.Element => {
+const App = ({ store }): JSX.Element => {
   return (
     <Provider store={store}>
-      <Pages/>
+      <Pages />
     </Provider>
   );
 };
 
-export default App
+export default App;

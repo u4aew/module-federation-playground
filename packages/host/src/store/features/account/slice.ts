@@ -13,7 +13,6 @@ export interface ResponseError {
   code?: string;
   description?: string;
   message?: string;
-
 }
 
 interface SliceState {
@@ -42,7 +41,7 @@ export const getUserInfo = createAsyncThunk<
     const { data } = await axios.get(config.routes.user);
     return data;
   } catch (error) {
-     alert(error.message)
+    alert(error.message);
   }
 });
 

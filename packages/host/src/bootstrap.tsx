@@ -5,4 +5,5 @@ import configureStore from './store/configureStore';
 import App from './root/App';
 
 const store = configureStore();
-ReactDom.render(<App store={store}/>, document.getElementById("root"));
+// @ts-ignore
+ReactDom.render(<App store={store} />);
