@@ -6,6 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Sergey Uchaev <dialoggg1994@gmail.com>",
+  "license": "ISC",
+  "repository": "https://github.com/u4aew/module-federation-playground.git",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
 }
