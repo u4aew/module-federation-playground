@@ -1,9 +1,15 @@
-import { createSelector } from '@reduxjs/toolkit';
+import { Fetch } from '@host/types';
 
 /**
  * Информация о пользователе
  * @param state
  */
+export const userSelector = (state) => state.account.user;
 
-// @ts-ignore
-export const userNameSelector = (state): state => state.account.userName;
+/**
+ * Есть ли активный запрос к за инфоль к пользователю
+ * @param state
+ */
+export const isLoadingUserSelector = (state): boolean => {
+  return state.account.fetchingState === Fetch.Pending;
+};

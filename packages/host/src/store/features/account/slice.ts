@@ -1,13 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import config from '../../../config';
+import { Fetch } from '@host/types';
 import axios from 'axios';
-
-export enum Fetch {
-  Idle = 'idle',
-  Pending = 'pending',
-  Fulfilled = 'fulfilled',
-  Rejected = 'rejected',
-}
 
 export interface ResponseError {
   code?: string;
@@ -15,8 +9,8 @@ export interface ResponseError {
   message?: string;
 }
 
-interface SliceState {
-  user: {} | null;
+export interface SliceState {
+  user: object | null;
   fetchingState: Fetch;
   error: ResponseError | null;
 }
@@ -30,20 +24,18 @@ const initialState: SliceState = {
 /**
  * Получить информацию о пользователе
  */
-export const getUserInfo = createAsyncThunk<
-  // Return type of the payload creator
-  any,
-  // First argument to the payload creator
-  string,
-  any
->('host/user', async () => {
-  try {
-    const { data } = await axios.get(config.routes.user);
-    return data;
-  } catch (error) {
-    alert(error.message);
-  }
-});
+export const getUserInfo = createAsyncThunk(
+  'host/user',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(config.routes.user);
+      return data;
+    } catch (error) {
+      // Используйте rejectWithValue для отправки ошибки, если это необходимо
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
 
 const slice = createSlice({
   name: 'account',
@@ -56,6 +48,7 @@ const slice = createSlice({
 
     builder.addCase(getUserInfo.pending, (state) => {
       state.fetchingState = Fetch.Pending;
+      console.log(state.fetchingState, 'state.fetchingState');
       state.error = null;
     });
     builder.addCase(getUserInfo.fulfilled, (state, action) => {

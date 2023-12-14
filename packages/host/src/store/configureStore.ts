@@ -1,16 +1,34 @@
-import { configureStore, getDefaultMiddleware, Store } from '@reduxjs/toolkit';
+import { configureStore, Middleware } from '@reduxjs/toolkit';
 import rootReducer from './features';
 
-export default function configureAppStore(preloadedState = {}): Store {
-  const enhancers = [];
-  const middleware = [];
+// Middleware для сохранения состояния в localStorage
+const localStorageMiddleware: Middleware = (store) => (next) => (action) => {
+  const result = next(action);
+  localStorage.setItem('state', JSON.stringify(store.getState()));
+  return result;
+};
 
-  const store = configureStore({
-    reducer: rootReducer,
-    middleware: [...middleware, ...getDefaultMiddleware()],
-    enhancers: [...enhancers],
-    preloadedState,
-  });
+// Загрузка состояния из localStorage
+const loadFromLocalStorage = () => {
+  try {
+    const serializedState = localStorage.getItem('state');
+    if (serializedState === null) return undefined;
+    return JSON.parse(serializedState);
+  } catch (e) {
+    console.warn('Error loading state from localStorage:', e);
+    return undefined;
+  }
+};
 
-  return store;
-}
+// Создание хранилища с подключенным middleware
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(localStorageMiddleware),
+  preloadedState: loadFromLocalStorage(),
+});
+
+export default store;
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;

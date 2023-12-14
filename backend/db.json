@@ -1,12 +1,10 @@
 {
   "common_user": {
-    "user": {
-      "id": 1,
-      "name": "Mike Smith",
-      "email": "",
-      "role": "ADMIN",
-      "theme" : "DARK"
-    }
+    "id": 1,
+    "name": "Mike Smith",
+    "email": "",
+    "role": "ADMIN",
+    "theme" : "DARK"
   },
   "cards_list": [
     {
