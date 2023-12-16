@@ -43,7 +43,6 @@ const CardsList = () => {
   }
   return (
     <div>
-      Hello Hello Hello
       <Table
         columns={columns}
         dataSource={cards.map(({ id, name, pan }) => ({
