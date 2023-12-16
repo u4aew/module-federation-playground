@@ -16,8 +16,8 @@ const PreviewCard = ({ expiry, name, pan }: Props) => {
       <div className={styles.side}>
         <div className={styles.info}>
           <div className={styles.item}>
-            <div className={styles.title}>Cardholder</div>
             <div className={styles.value}>{name}</div>
+            <div className={styles.title}>Cardholder</div>
           </div>
           <div className={styles.item}>
             <div className={styles.title}>Expiry</div>
