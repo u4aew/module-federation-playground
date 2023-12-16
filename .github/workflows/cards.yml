@@ -25,3 +25,13 @@ jobs:
 
       - name: Build Cards
         run: yarn workspace cards build
+
+      - name: Copy build to the server
+        uses: appleboy/scp-action@master
+        with:
+          host: 138.68.115.124
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: "packages/cards/dist/*"
+          target: "/usr/share/nginx/html/microfrontend/apps/cards"
