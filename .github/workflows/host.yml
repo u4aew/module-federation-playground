@@ -1,12 +1,12 @@
-name: Build Hosts Project
+name: Build Host Project
 
 on:
   push:
     paths:
-      - 'packages/hosts/**'
+      - 'packages/host/**'
   pull_request:
     paths:
-      - 'packages/hosts/**'
+      - 'packages/host/**'
 
 jobs:
   build:
@@ -23,13 +23,13 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-      - name: Build Hosts
-        run: yarn workspace hosts build
+      - name: Build Host
+        run: yarn workspace host build
 
       - name: Copy files to a temporary directory
         run: |
-          mkdir hosts
-          cp -R packages/hosts/dist/* hosts/
+          mkdir microfrontend
+          cp -R packages/host/dist/* microfrontend/
 
       - name: Deploy to Server
         uses: appleboy/scp-action@master
@@ -37,5 +37,5 @@ jobs:
           host: 138.68.115.124
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "hosts/*"
-          target: "/usr/share/nginx/html/microfrontend/apps"
+          source: "microfrontend/*"
+          target: "/usr/share/nginx/html"

@@ -9,7 +9,7 @@
     "lint-fix": "eslint --fix 'packages/**/*.js'",
     "format": "prettier --write 'packages/**/*.js'",
     "build:cards": "yarn workspace cards build",
-    "build:hosts": "yarn workspace hosts build",
+    "build:host": "yarn workspace host build",
     "build:transactions": "yarn workspace transactions build"
   },
   "author": "Sergey Uchaev <dialoggg1994@gmail.com>",
