@@ -28,7 +28,7 @@ jobs:
 
       - name: Copy files to a temporary directory
         run: |
-          mkdir temp_dist
+          mkdir cards
           cp -R packages/cards/dist/* temp_dist/
 
       - name: Deploy to Server
@@ -37,5 +37,5 @@ jobs:
           host: 138.68.115.124
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "temp_dist/*"
-          target: "/usr/share/nginx/html/microfrontend/apps/cards"
+          source: "cards/*"
+          target: "/usr/share/nginx/html/microfrontend/apps"
