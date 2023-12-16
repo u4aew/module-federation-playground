@@ -26,12 +26,16 @@ jobs:
       - name: Build Cards
         run: yarn workspace cards build
 
-      - name: Copy build to the server
+      - name: Copy files to a temporary directory
+        run: |
+          mkdir temp_dist
+          cp -R packages/cards/dist/* temp_dist/
+
+      - name: Deploy to Server
         uses: appleboy/scp-action@master
         with:
           host: 138.68.115.124
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          source: "packages/cards/dist/*"
+          source: "temp_dist/*"
           target: "/usr/share/nginx/html/microfrontend/apps/cards"
