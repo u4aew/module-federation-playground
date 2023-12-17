@@ -13,16 +13,14 @@ interface DataType {
 
 const columns: ColumnsType<DataType> = [
   {
-    title: 'Name',
+    title: 'Cardholder',
     dataIndex: 'name',
     key: 'name',
-    render: (text) => <a>{text}</a>,
   },
   {
     title: 'Pan',
     dataIndex: 'pan',
     key: 'pan',
-    render: (text) => <a>{text}</a>,
   },
   {
     title: 'Action',
@@ -35,7 +33,7 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-const CardsList = () => {
+export const CardsList = () => {
   const { cards } = useSelector(userCardsSelector);
 
   if (!cards) {
@@ -54,5 +52,3 @@ const CardsList = () => {
     </div>
   );
 };
-
-export default CardsList;

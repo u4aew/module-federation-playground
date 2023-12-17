@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import CardList from '@modules/cards/pages/CardsList/CardList';
+import CardsList from '@modules/cards/pages/CardsList';
 import CardDetail from '@modules/cards/pages/CardDetail/CardDetail';
 import { getCards } from '@modules/cards/store/features/cards/slice';
 import { useDispatch } from 'react-redux';
@@ -21,7 +21,7 @@ const App = (): JSX.Element => {
   return (
     <Router>
       <Routes>
-        <Route path="/cards" element={<CardList />} />
+        <Route path="/cards" element={<CardsList />} />
         <Route path="/cards/:cardId" element={<CardDetail />} />
       </Routes>
     </Router>

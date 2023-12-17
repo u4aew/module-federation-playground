@@ -37,5 +37,17 @@
       "currency": "USD"
     }
   ],
-  "transactions_details": {}
+  "transactions_details": {
+    "transactionId": 1,
+    "date": "01.02.2023 16:05",
+    "sum": "100.23",
+    "currency": "USD",
+    "recipientName": "John Doe",
+    "recipientAccount": "123456789",
+    "senderName": "Jane Smith",
+    "senderAccount": "987654321",
+    "transactionType": "Transfer",
+    "description": "Monthly rent payment",
+    "status": "Completed"
+  }
 }
