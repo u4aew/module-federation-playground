@@ -16,14 +16,14 @@ export interface ResponseError {
 }
 
 interface SliceState {
-  transactions: object[] | null;
+  list: object[] | null;
   details: null | object;
   fetchingState: Fetch;
   error: ResponseError | null;
 }
 
 const initialState: SliceState = {
-  transactions: null,
+  list: null,
   details: null,
   fetchingState: Fetch.Idle,
   error: null,
@@ -61,7 +61,7 @@ const slice = createSlice({
       state.error = null;
     });
     builder.addCase(getTransactions.fulfilled, (state, action) => {
-      state.transactions = action.payload;
+      state.list = action.payload;
       state.fetchingState = Fetch.Fulfilled;
     });
     builder.addCase(getTransactions.rejected, (state, action) => {
