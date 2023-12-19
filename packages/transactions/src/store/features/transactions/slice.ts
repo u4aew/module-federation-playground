@@ -32,15 +32,30 @@ const initialState: SliceState = {
 /**
  * Получить информацию о транзакциях
  */
-export const getTransactions = createAsyncThunk<
+export const getTransactions = createAsyncThunk(
+  'modules/transactions',
+  async () => {
+    try {
+      const { data } = await axios.get(config.routes.transactions);
+      return data;
+    } catch (error) {
+      alert(error.message);
+    }
+  },
+);
+
+/**
+ * Получить информацию о транзакциях
+ */
+export const getTransactionDetails = createAsyncThunk<
   // Return type of the payload creator
-  any,
+  never,
   // First argument to the payload creator
   string,
-  any
->('modules/transactions', async () => {
+  never
+>('modules/transaction/details', async () => {
   try {
-    const { data } = await axios.get(config.routes.transactions);
+    const { data } = await axios.get(config.routes.transactionDetails);
     return data;
   } catch (error) {
     alert(error.message);
@@ -65,6 +80,22 @@ const slice = createSlice({
       state.fetchingState = Fetch.Fulfilled;
     });
     builder.addCase(getTransactions.rejected, (state, action) => {
+      state.fetchingState = Fetch.Rejected;
+      // @ts-ignore
+      state.error = action.error;
+    });
+
+    /** getDetailsTransaction */
+
+    builder.addCase(getTransactionDetails.pending, (state) => {
+      state.fetchingState = Fetch.Pending;
+      state.error = null;
+    });
+    builder.addCase(getTransactionDetails.fulfilled, (state, action) => {
+      state.details = action.payload;
+      state.fetchingState = Fetch.Fulfilled;
+    });
+    builder.addCase(getTransactionDetails.rejected, (state, action) => {
       state.fetchingState = Fetch.Rejected;
       // @ts-ignore
       state.error = action.error;

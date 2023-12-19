@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import TransactionsList from '@modules/transactions/pages/TransactionsList';
+import TransactionDetails from '@modules/transactions/pages/TransactionDetails';
 import { getTransactions } from '@modules/transactions/store/features/transactions/slice';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AppDispatch } from '@modules/transactions/store/store';
 
 const App = (): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     const load = async () => {
-      // @ts-ignore
-      await dispatch(getTransactions('test'));
+      await dispatch(getTransactions());
       const event = new Event('loadTransactions');
       window.dispatchEvent(event);
     };
@@ -20,7 +21,11 @@ const App = (): JSX.Element => {
   return (
     <Router>
       <Routes>
-        <Route path={'/*'} element={<TransactionsList />} />
+        <Route path={'/transactions'} element={<TransactionsList />} />
+        <Route
+          path={'/transactions/:transactionId'}
+          element={<TransactionDetails />}
+        />
         {/* Add more routes as needed */}
       </Routes>
     </Router>
