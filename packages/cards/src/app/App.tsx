@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import CardsList from '@modules/cards/pages/CardsList';
-import CardDetail from '@modules/cards/pages/CardDetail/CardDetail';
+import CardDetail from '@modules/cards/pages/CardDetail';
 import { getCards } from '@modules/cards/store/features/cards/slice';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';

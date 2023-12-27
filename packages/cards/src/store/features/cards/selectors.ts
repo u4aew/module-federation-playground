@@ -1,9 +1,7 @@
-import { createSelector } from '@reduxjs/toolkit';
-
 /**
  * Информация о картах
  * @param state
  */
 
-// @ts-ignore
-export const userCardsSelector = (state): state => state.cards;
+export const userCardsSelector = (state) => state.cards.list;
+export const userCardsDetailsSelector = (state) => state.cards.details;
