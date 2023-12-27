@@ -14,7 +14,7 @@ interface DataType {
 
 const columns: ColumnsType<DataType> = [
   {
-    title: 'Cardholder',
+    title: 'Preview',
     dataIndex: 'name',
     key: 'name',
     render: (value, record) => {
