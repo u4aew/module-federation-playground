@@ -1,17 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styles from './style.module.scss';
 
 type Props = {
   pan: string;
-  expiry: string;
   name: string;
-  ps: string;
 };
 
-const PreviewCard = ({ expiry, name, pan }: Props) => {
+const PreviewCard = ({ name, pan }: Props) => {
   return (
-    <Link to="/cards/34" className={styles.card}>
+    <div className={styles.card}>
       <div className={styles.main}>
         <div className={styles.pan}>{pan}</div>
       </div>
@@ -23,11 +20,11 @@ const PreviewCard = ({ expiry, name, pan }: Props) => {
           </div>
           <div className={styles.item}>
             <div className={styles.title}>Expiry</div>
-            <div className={styles.value}>{expiry}</div>
+            <div className={styles.value}>99/99</div>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

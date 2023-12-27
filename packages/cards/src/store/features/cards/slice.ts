@@ -16,14 +16,14 @@ export interface ResponseError {
 }
 
 interface SliceState {
-  cards: string[] | null;
+  list: string[] | null;
   details: null | object;
   fetchingState: Fetch;
   error: ResponseError | null;
 }
 
 const initialState: SliceState = {
-  cards: null,
+  list: null,
   details: null,
   fetchingState: Fetch.Idle,
   error: null,
@@ -47,6 +47,24 @@ export const getCards = createAsyncThunk<
   }
 });
 
+/**
+ * Получить информацию о банковской карте
+ */
+export const getCardDetails = createAsyncThunk<
+  // Return type of the payload creator
+  never,
+  // First argument to the payload creator
+  string,
+  never
+>('modules/cards/details', async () => {
+  try {
+    const { data } = await axios.get(config.routes.cardsDetails);
+    return data;
+  } catch (error) {
+    alert(error.message);
+  }
+});
+
 const slice = createSlice({
   name: 'account',
   initialState,
@@ -61,10 +79,26 @@ const slice = createSlice({
       state.error = null;
     });
     builder.addCase(getCards.fulfilled, (state, action) => {
-      state.cards = action.payload;
+      state.list = action.payload;
       state.fetchingState = Fetch.Fulfilled;
     });
     builder.addCase(getCards.rejected, (state, action) => {
+      state.fetchingState = Fetch.Rejected;
+      // @ts-ignore
+      state.error = action.error;
+    });
+
+    /** getCardsDetails */
+
+    builder.addCase(getCardDetails.pending, (state) => {
+      state.fetchingState = Fetch.Pending;
+      state.error = null;
+    });
+    builder.addCase(getCardDetails.fulfilled, (state, action) => {
+      state.details = action.payload;
+      state.fetchingState = Fetch.Fulfilled;
+    });
+    builder.addCase(getCardDetails.rejected, (state, action) => {
       state.fetchingState = Fetch.Rejected;
       // @ts-ignore
       state.error = action.error;
