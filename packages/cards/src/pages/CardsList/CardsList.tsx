@@ -3,6 +3,7 @@ import { Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { useSelector } from 'react-redux';
 import { userCardsSelector } from '@modules/cards/store/features/cards/selectors';
+import PreviewCard from '@modules/cards/components/PreviewCard/PreviewCard';
 import { Link } from 'react-router-dom';
 
 interface DataType {
@@ -16,11 +17,15 @@ const columns: ColumnsType<DataType> = [
     title: 'Cardholder',
     dataIndex: 'name',
     key: 'name',
-  },
-  {
-    title: 'Pan',
-    dataIndex: 'pan',
-    key: 'pan',
+    render: (value, record) => {
+      console.log(record, 'record');
+      return (
+        <PreviewCard
+          pan={record.pan}
+          name={record.name}
+        />
+      );
+    },
   },
   {
     title: 'Action',
@@ -34,7 +39,7 @@ const columns: ColumnsType<DataType> = [
 ];
 
 export const CardsList = () => {
-  const { cards } = useSelector(userCardsSelector);
+  const cards = useSelector(userCardsSelector);
 
   if (!cards) {
     return <div>Loading...</div>;

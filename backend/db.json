@@ -4,7 +4,7 @@
     "name": "Mike Smith",
     "email": "",
     "role": "ADMIN",
-    "theme" : "DARK"
+    "theme": "DARK"
   },
   "cards_list": [
     {
@@ -22,7 +22,36 @@
       "ps": "VISA"
     }
   ],
-  "cards_details": {},
+  "cards_details": {
+    "pan": "4111 3424 **** 3425",
+    "expiry": "09/27",
+    "cardHolderName": "John Smith",
+    "paymentSystem": "VISA",
+    "cardType": "Credit Card",
+    "issuingBank": "Bank of Example",
+    "creditLimit": "10000",
+    "availableBalance": "7500",
+    "securityFeatures": [
+      "Chip and PIN",
+      "Contactless",
+      "Online Fraud Protection"
+    ],
+    "linkedAccount": "12345678901",
+    "recentTransactions": [
+      {
+        "date": "20.12.2023",
+        "amount": "200.50",
+        "currency": "USD",
+        "description": "Grocery Store Purchase"
+      },
+      {
+        "date": "18.12.2023",
+        "amount": "50.00",
+        "currency": "USD",
+        "description": "Online Subscription"
+      }
+    ]
+  },
   "transactions_list": [
     {
       "id": 1,
