@@ -18,13 +18,7 @@ const columns: ColumnsType<DataType> = [
     dataIndex: 'name',
     key: 'name',
     render: (value, record) => {
-      console.log(record, 'record');
-      return (
-        <PreviewCard
-          pan={record.pan}
-          name={record.name}
-        />
-      );
+      return <PreviewCard pan={record.pan} name={record.name} />;
     },
   },
   {

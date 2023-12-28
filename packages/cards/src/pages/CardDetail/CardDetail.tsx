@@ -4,7 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCardDetails } from '@modules/cards/store/features/cards/slice';
 import { AppDispatch } from '@modules/cards/store/store';
 import { userCardsDetailsSelector } from '@modules/cards/store/features/cards/selectors';
-import { USER_ROLE, onChangeUserRole } from 'shared';
+import {
+  USER_ROLE,
+  EnumRole,
+  onChangeUserRole,
+  stopListeningToUserRoleChange,
+} from 'shared';
 
 export const CardDetail = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -40,6 +45,7 @@ export const CardDetail = () => {
 
   useEffect(() => {
     onChangeUserRole(setRole);
+    return stopListeningToUserRoleChange;
   }, []);
 
   if (!cardDetails) {
@@ -48,13 +54,19 @@ export const CardDetail = () => {
 
   const getActions = () => {
     switch (role) {
-      case 'ADMIN':
+      case EnumRole.admin:
         return [
           <Button key="edit" type="primary" onClick={showEditModal}>
             Edit
           </Button>,
           <Button key="delete" type="dashed" onClick={handleDelete}>
             Delete
+          </Button>,
+        ];
+      case EnumRole.manager:
+        return [
+          <Button key="edit" type="primary" onClick={showEditModal}>
+            Edit
           </Button>,
         ];
       default:
@@ -66,7 +78,7 @@ export const CardDetail = () => {
     <>
       <Card
         actions={getActions()}
-        title={`Card Details - ${cardDetails.cardHolderName}`}
+        title={`Card Details - ${cardDetails.cardHolderName} `}
       >
         <p>PAN: {cardDetails.pan}</p>
         <p>Expiry: {cardDetails.expiry}</p>
@@ -85,10 +97,13 @@ export const CardDetail = () => {
             </List.Item>
           )}
         />
+        <p>
+          <b>*For demonstration events from the host, change the user role.</b>
+        </p>
       </Card>
       <Modal
         title="Edit transactions"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleEdit}
         onCancel={() => setIsModalVisible(false)}
       >

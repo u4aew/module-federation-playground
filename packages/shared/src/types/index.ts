@@ -1,7 +1,7 @@
 export enum EnumRole {
   admin = 'ADMIN',
   user = 'USER',
-  manager = 'MANGER',
+  manager = 'MANAGER',
 }
 
 export type TypeUser = {
@@ -16,9 +16,7 @@ declare global {
   interface Window {
     host: {
       common: {
-        user: {
-          role: EnumRole;
-        };
+        user: TypeUser;
       };
     };
   }
