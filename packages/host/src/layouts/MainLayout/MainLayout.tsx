@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '@host/store/features/common/selectors';
 import { setRole } from '@host/store/features/common/slice';
 import { AppDispatch } from '@host/store/store';
-import { useCommunication } from 'shared';
+import { emitChangeUserRole } from 'shared';
 
 const { Option } = Select;
 
@@ -15,18 +15,12 @@ export const MainLayout = ({ children }) => {
   const dispatch: AppDispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const user = useSelector(userSelector);
-  console.log(useCommunication(), 'useWebAuthn()');
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
   const handleRoleChange = (newRole) => {
-    //@ts-ignore
-    const event = new CustomEvent('hostEvent:ChangeRole', {
-      detail: { role: newRole },
-    });
-    window.dispatchEvent(event);
-    //@ts-ignore
+    emitChangeUserRole(newRole);
     dispatch(setRole(newRole));
   };
 

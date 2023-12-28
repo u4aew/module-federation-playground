@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCardDetails } from '@modules/cards/store/features/cards/slice';
 import { AppDispatch } from '@modules/cards/store/store';
 import { userCardsDetailsSelector } from '@modules/cards/store/features/cards/selectors';
+import { USER_ROLE, onChangeUserRole } from 'shared';
 
 export const CardDetail = () => {
   const dispatch: AppDispatch = useDispatch();
   const cardDetails = useSelector(userCardsDetailsSelector);
-  //@ts-ignore
-  const [role, setRole] = useState(window.host.common.user.role);
+  const [role, setRole] = useState(USER_ROLE);
 
   useEffect(() => {
     const load = async () => {
@@ -25,7 +25,6 @@ export const CardDetail = () => {
   };
 
   const handleEdit = () => {
-    console.log('Submit edit');
     setIsModalVisible(false);
   };
 
@@ -40,10 +39,7 @@ export const CardDetail = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('hostEvent:ChangeRole', (event) => {
-      //@ts-ignore
-      setRole(event.detail.role);
-    });
+    onChangeUserRole(setRole);
   }, []);
 
   if (!cardDetails) {

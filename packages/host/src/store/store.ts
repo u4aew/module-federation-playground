@@ -1,21 +1,17 @@
 import { configureStore, Middleware } from '@reduxjs/toolkit';
-import rootReducer from './features';
+import rootReducer, { RootState } from './features';
+const windowStateMiddleware: Middleware<{}, RootState> =
+  (store) => (next) => (action) => {
+    const result = next(action);
+    (window as any).host = store.getState();
+    return result;
+  };
 
-const windowStateMiddleware: Middleware = (store) => (next) => (action) => {
-  const result = next(action);
-  // @ts-ignore
-  window.host = store.getState();
-  // @ts-ignore
-  console.log(window.host, 'global state');
-  return result;
-};
-
-const loadFromWindow = () => {
+const loadFromWindow = (): RootState | undefined => {
   try {
-    // @ts-ignore
-    if (window.host === null) return undefined;
-    // @ts-ignore
-    return window.host;
+    const hostState = (window as any).host;
+    if (hostState === null) return undefined;
+    return hostState;
   } catch (e) {
     console.warn('Error loading state from window:', e);
     return undefined;
@@ -33,4 +29,3 @@ const store = configureStore({
 export default store;
 
 export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;

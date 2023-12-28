@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "src",
+    "noImplicitAny": false,
     "paths": {
       "@host/*": ["*"],
       "shared/*": ["../../shared/*"]

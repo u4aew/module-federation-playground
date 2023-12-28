@@ -11,3 +11,15 @@ export type TypeUser = {
   name: string;
   email: string;
 };
+
+declare global {
+  interface Window {
+    host: {
+      common: {
+        user: {
+          role: EnumRole;
+        };
+      };
+    };
+  }
+}
