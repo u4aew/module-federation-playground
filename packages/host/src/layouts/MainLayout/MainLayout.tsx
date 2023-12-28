@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Layout, Button, Row, Col, Select, theme } from 'antd';
-import Nav from '@host/components/Nav/Nav';
-const { Header, Sider, Content } = Layout;
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { Layout, Button, Row, Col, Select, theme } from 'antd';
+const { Header, Sider, Content, Footer } = Layout;
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import Nav from '@host/components/Nav/Nav';
 import { userSelector } from '@host/store/features/common/selectors';
 import { setUserRole } from '@host/store/features/common/slice';
 import { AppDispatch } from '@host/store/store';
@@ -72,6 +72,15 @@ export const MainLayout = ({ children }) => {
         >
           {children}
         </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          <a
+            href="https://github.com/u4aew/module-federation-playground"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub Repository Link
+          </a>
+        </Footer>
       </Layout>
     </Layout>
   );
