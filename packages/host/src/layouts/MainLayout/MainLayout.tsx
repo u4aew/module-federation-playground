@@ -5,7 +5,7 @@ const { Header, Sider, Content } = Layout;
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '@host/store/features/common/selectors';
-import { setRole } from '@host/store/features/common/slice';
+import { setUserRole } from '@host/store/features/common/slice';
 import { AppDispatch } from '@host/store/store';
 import { emitChangeUserRole } from 'shared';
 
@@ -19,9 +19,11 @@ export const MainLayout = ({ children }) => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const handleRoleChange = (newRole) => {
-    emitChangeUserRole(newRole);
-    dispatch(setRole(newRole));
+  const handleRoleChange = (value) => {
+    // send to microfrontend
+    emitChangeUserRole(value);
+    // send to backend
+    dispatch(setUserRole(value));
   };
 
   return (

@@ -42,7 +42,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     reset: (): SliceState => initialState,
-    setRole: (state, action: PayloadAction<EnumRole>) => {
+    setUserRole: (state, action: PayloadAction<EnumRole>) => {
       if (state.user) {
         state.user.role = action.payload;
       }
@@ -65,6 +65,6 @@ const slice = createSlice({
   },
 });
 
-export const { reset, setRole } = slice.actions;
+export const { setUserRole } = slice.actions;
 
 export default slice.reducer;
