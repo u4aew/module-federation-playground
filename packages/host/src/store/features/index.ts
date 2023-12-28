@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import account from './account/slice';
+import common from './common/slice';
 
 const rootReducer = combineReducers({
-  account,
+  common,
 });
 
 export default rootReducer;

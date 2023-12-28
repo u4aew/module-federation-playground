@@ -10,7 +10,8 @@
     "format": "prettier --write 'packages/**/*.js'",
     "build:cards": "yarn workspace cards build",
     "build:host": "yarn workspace host build",
-    "build:transactions": "yarn workspace transactions build"
+    "build:transactions": "yarn workspace transactions build",
+    "build:shared": "yarn workspace shared build"
   },
   "author": "Sergey Uchaev <dialoggg1994@gmail.com>",
   "license": "ISC",

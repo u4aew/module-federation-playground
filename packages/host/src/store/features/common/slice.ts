@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import config from '../../../config';
+import config from '@host/config';
 import { Fetch } from '@host/types';
+import { TypeUser } from 'shared';
 import axios from 'axios';
 
 export interface ResponseError {
@@ -10,7 +11,7 @@ export interface ResponseError {
 }
 
 export interface SliceState {
-  user: object | null;
+  user: TypeUser | null;
   fetchingState: Fetch;
   error: ResponseError | null;
 }
@@ -42,6 +43,13 @@ const slice = createSlice({
   initialState,
   reducers: {
     reset: (): SliceState => initialState,
+    setRole: (state, action) => {
+      console.log(action.payload, 'action');
+      // Проверка на существование state.common и state.common.user
+      // Непосредственное изменение роли пользователя
+      // @ts-ignore
+      state.user.role = action.payload;
+    },
   },
   extraReducers: (builder) => {
     /** getUserInfo */
@@ -64,6 +72,6 @@ const slice = createSlice({
   },
 });
 
-export const { reset } = slice.actions;
+export const { reset, setRole } = slice.actions;
 
 export default slice.reducer;

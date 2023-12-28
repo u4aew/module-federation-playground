@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Main } from '../pages/Main';
 import { MainLayout } from '@host/layouts/MainLayout';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserInfo } from '@host/store/features/account/slice';
-import { AppDispatch } from '@host/store/configureStore';
-import { isLoadingUserSelector } from '@host/store/features/account/selectors';
+import { getUserInfo } from '@host/store/features/common/slice';
+import { AppDispatch } from '@host/store/store';
+import { isLoadingUserSelector } from '@host/store/features/common/selectors';
 import { Spin } from 'antd';
 
 const Cards = React.lazy(() => import('remote-modules-cards/Cards'));

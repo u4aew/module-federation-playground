@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import store from './store/configureStore';
+import store from './store/store';
 import App from './root/App';
 
 // @ts-ignore

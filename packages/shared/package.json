@@ -1,0 +1,48 @@
+{
+  "name": "shared",
+  "keywords": [],
+  "version": "1.0.0",
+  "description": "shared",
+  "type": "module",
+  "scripts": {
+    "start:demo": "vite",
+    "build": "tsc && vite build && tsc --project tsconfig.json && tsc-alias",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "format": "prettier --write 'src/**/*.{js,ts,tsx}'"
+  },
+  "license": "ISC",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js"
+    },
+    "./types": {
+      "import": "./dist/types/index.d.ts"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "@vitejs/plugin-react": "2.2.0",
+    "eslint": "8.22.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "3.0.3",
+    "tsc-alias": "1.7.0",
+    "typescript": "^4.6.4",
+    "vite": "3.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}

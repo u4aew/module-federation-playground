@@ -8,6 +8,9 @@ import { userCardsDetailsSelector } from '@modules/cards/store/features/cards/se
 export const CardDetail = () => {
   const dispatch: AppDispatch = useDispatch();
   const cardDetails = useSelector(userCardsDetailsSelector);
+  //@ts-ignore
+  const [role, setRole] = useState(window.host.common.user.role);
+
   useEffect(() => {
     const load = async () => {
       await dispatch(getCardDetails('1'));
@@ -36,21 +39,37 @@ export const CardDetail = () => {
     });
   };
 
+  useEffect(() => {
+    window.addEventListener('hostEvent:ChangeRole', (event) => {
+      //@ts-ignore
+      setRole(event.detail.role);
+    });
+  }, []);
+
   if (!cardDetails) {
     return <div>loading...</div>;
   }
 
-  return (
-    <>
-      <Card
-        actions={[
+  const getActions = () => {
+    switch (role) {
+      case 'ADMIN':
+        return [
           <Button key="edit" type="primary" onClick={showEditModal}>
             Edit
           </Button>,
           <Button key="delete" type="dashed" onClick={handleDelete}>
             Delete
           </Button>,
-        ]}
+        ];
+      default:
+        return [];
+    }
+  };
+
+  return (
+    <>
+      <Card
+        actions={getActions()}
         title={`Card Details - ${cardDetails.cardHolderName}`}
       >
         <p>PAN: {cardDetails.pan}</p>

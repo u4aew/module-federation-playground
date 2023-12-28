@@ -3,21 +3,31 @@ import { Layout, Button, Row, Col, Select, theme } from 'antd';
 import Nav from '@host/components/Nav/Nav';
 const { Header, Sider, Content } = Layout;
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { useSelector } from 'react-redux';
-import { userSelector } from '@host/store/features/account/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelector } from '@host/store/features/common/selectors';
+import { setRole } from '@host/store/features/common/slice';
+import { AppDispatch } from '@host/store/store';
+import { useCommunication } from 'shared';
 
 const { Option } = Select;
 
 export const MainLayout = ({ children }) => {
+  const dispatch: AppDispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const user = useSelector(userSelector);
+  console.log(useCommunication(), 'useWebAuthn()');
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
   const handleRoleChange = (newRole) => {
-    console.log('Selected Role:', newRole);
-    // Handle role change here (e.g., update state or make API call)
+    //@ts-ignore
+    const event = new CustomEvent('hostEvent:ChangeRole', {
+      detail: { role: newRole },
+    });
+    window.dispatchEvent(event);
+    //@ts-ignore
+    dispatch(setRole(newRole));
   };
 
   return (
@@ -49,9 +59,9 @@ export const MainLayout = ({ children }) => {
                   style={{ width: 120, marginLeft: 10 }}
                   onChange={handleRoleChange}
                 >
-                  <Option value="manager">Manager</Option>
-                  <Option value="admin">Admin</Option>
-                  <Option value="user">User</Option>
+                  <Option value="MANAGER">Manager</Option>
+                  <Option value="ADMIN">Admin</Option>
+                  <Option value="USER">User</Option>
                 </Select>
               </span>
             </Col>

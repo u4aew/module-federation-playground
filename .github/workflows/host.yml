@@ -23,6 +23,9 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
+      - name: Build Shared
+        run: yarn workspace shared build
+
       - name: Build Host
         run: yarn workspace host build
 
