@@ -11,6 +11,8 @@ on:
 jobs:
   install-dependencies:
     runs-on: ubuntu-latest
+    outputs:
+      cache-key: ${{ steps.cache-keys.outputs.key }}
 
     steps:
       - uses: actions/checkout@v2
@@ -21,6 +23,7 @@ jobs:
           node-version: '16'
 
       - name: Cache Node modules
+        id: cache-keys
         uses: actions/cache@v2
         with:
           path: '**/node_modules'
@@ -45,7 +48,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ needs.install-dependencies.outputs.cache-key }}
 
       - name: Build Shared Modules
         run: yarn workspace shared build
@@ -69,7 +72,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ needs.install-dependencies.outputs.cache-key }}
 
       - name: Build Cards
         run: yarn workspace cards build
