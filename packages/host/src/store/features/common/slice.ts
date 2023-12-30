@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import config from '@host/config';
 import { events, types as SharedTypes } from 'shared';
 import axios from 'axios';
@@ -36,17 +36,25 @@ export const getUserInfo = createAsyncThunk(
   },
 );
 
+// Set user role
+export const setUserRole = createAsyncThunk(
+  'host/set/user/role',
+  async (role: SharedTypes.EnumRole, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(config.routes.user);
+      emitChangeUserRole(role);
+      return { ...data, role };
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
 const slice = createSlice({
   name: 'account',
   initialState,
   reducers: {
     reset: (): SliceState => initialState,
-    setUserRole: (state, action: PayloadAction<SharedTypes.EnumRole>) => {
-      if (state.user) {
-        state.user.role = action.payload;
-        emitChangeUserRole(action.payload);
-      }
-    },
   },
   extraReducers: (builder) => {
     /** getUserInfo */
@@ -62,9 +70,17 @@ const slice = createSlice({
       state.fetchingState = SharedTypes.EnumFetch.Rejected;
       state.error = action.error;
     });
+    /** setUserRole */
+    builder.addCase(setUserRole.pending, (state) => {
+      state.error = null;
+    });
+    builder.addCase(setUserRole.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
+    builder.addCase(setUserRole.rejected, (state, action) => {
+      state.error = action.error;
+    });
   },
 });
-
-export const { setUserRole } = slice.actions;
 
 export default slice.reducer;
