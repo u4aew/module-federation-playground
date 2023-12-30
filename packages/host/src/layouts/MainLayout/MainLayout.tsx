@@ -7,7 +7,6 @@ import Nav from '@host/components/Nav/Nav';
 import { userSelector } from '@host/store/features/common/selectors';
 import { setUserRole } from '@host/store/features/common/slice';
 import { AppDispatch } from '@host/store/store';
-import { events } from 'shared';
 
 const { Option } = Select;
 
