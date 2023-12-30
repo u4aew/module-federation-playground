@@ -23,7 +23,7 @@ const initialState: SliceState = {
 };
 
 /**
- * Получить информацию о пользователе
+ * Get user info
  */
 export const getUserInfo = createAsyncThunk(
   'host/user',

@@ -25,7 +25,7 @@ const initialState: SliceState = {
 };
 
 /**
- * Получить информацию о картах
+ * Get list cards
  */
 export const getCards = createAsyncThunk('modules/cards', async () => {
   try {
@@ -37,7 +37,7 @@ export const getCards = createAsyncThunk('modules/cards', async () => {
 });
 
 /**
- * Получить информацию о банковской карте
+ * Get details info
  */
 export const getCardDetails = createAsyncThunk<
   // Return type of the payload creator

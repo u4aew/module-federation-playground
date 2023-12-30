@@ -24,7 +24,7 @@ const initialState: SliceState = {
 };
 
 /**
- * Получить информацию о транзакциях
+ * Get list transactions
  */
 export const getTransactions = createAsyncThunk(
   'modules/transactions',
@@ -39,7 +39,7 @@ export const getTransactions = createAsyncThunk(
 );
 
 /**
- * Получить информацию о транзакциях
+ * Get details info about transaction
  */
 export const getTransactionDetails = createAsyncThunk<
   // Return type of the payload creator
