@@ -50,10 +50,14 @@ jobs:
       - name: Build Shared Modules
         run: yarn workspace shared build
 
-      - name: Test and Build Cards
-        run: |
-          yarn workspace cards test
-          yarn workspace cards build
+      - name: Test Shared Modules
+        run: yarn workspace shared test
+
+      - name: Archive Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: shared-artifacts
+          path: packages/cards/dist
 
   deploy-cards:
     needs: test-and-build
@@ -73,10 +77,11 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Copy files to a temporary directory
-        run: |
-          mkdir cards
-          cp -R packages/cards/dist/* cards/
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: shared-artifacts
+          path: ./cards
 
       - name: Deploy to Server
         uses: appleboy/scp-action@master
