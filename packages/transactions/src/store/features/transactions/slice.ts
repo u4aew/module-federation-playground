@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import config from '../../../config';
+import config from '@modules/transactions/config';
 import { EnumFetch } from 'shared';
+import { Transaction, TransactionDetails } from '@modules/transactions/types';
 import axios from 'axios';
 
 export interface ResponseError {
@@ -10,8 +11,8 @@ export interface ResponseError {
 }
 
 interface SliceState {
-  list: object[] | null;
-  details: null | object;
+  list: TransactionDetails[] | null;
+  details: null | Transaction;
   fetchingState: EnumFetch;
   error: ResponseError | null;
 }

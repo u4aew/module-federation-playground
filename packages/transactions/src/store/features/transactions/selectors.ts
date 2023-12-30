@@ -1,8 +1,11 @@
+import { Transaction, TransactionDetails } from '@modules/transactions/types';
+
 /**
- * Информация о транзакциях
+ * Info about transactions
  * @param state
  */
 
-export const userTransactionsSelector = (state) => state.transactions.list;
-export const userTransactionDetailsSelector = (state) =>
+export const userTransactionsSelector = (state): Transaction[] =>
+  state.transactions.list;
+export const userTransactionDetailsSelector = (state): TransactionDetails =>
   state.transactions.details;

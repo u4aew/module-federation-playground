@@ -4,16 +4,17 @@ import { AppDispatch } from '@modules/transactions/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Descriptions, Button, Modal, notification } from 'antd';
 import { userTransactionDetailsSelector } from '@modules/transactions/store/features/transactions/selectors';
+import {
+  EnumRole,
+  onChangeUserRole,
+  stopListeningToUserRoleChange,
+  USER_ROLE,
+} from 'shared';
 
 export const TransactionDetails = () => {
   const dispatch: AppDispatch = useDispatch();
   const transaction = useSelector(userTransactionDetailsSelector);
-  useEffect(() => {
-    const load = async () => {
-      await dispatch(getTransactionDetails('1'));
-    };
-    load();
-  }, []);
+  const [role, setRole] = useState(USER_ROLE);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -22,7 +23,6 @@ export const TransactionDetails = () => {
   };
 
   const handleEdit = () => {
-    console.log('Submit edit');
     setIsModalVisible(false);
   };
 
@@ -36,23 +36,44 @@ export const TransactionDetails = () => {
     });
   };
 
-  if (!transaction) {
-    return <div>loading...</div>;
-  }
-
-  return (
-    <>
-      <Card
-        actions={[
+  const getActions = () => {
+    switch (role) {
+      case EnumRole.admin:
+        return [
           <Button key="edit" type="primary" onClick={showEditModal}>
             Edit
           </Button>,
           <Button key="delete" type="dashed" onClick={handleDelete}>
             Delete
           </Button>,
-        ]}
-        title="Transaction Details"
-      >
+        ];
+      case EnumRole.manager:
+        return [
+          <Button key="edit" type="primary" onClick={showEditModal}>
+            Edit
+          </Button>,
+        ];
+      default:
+        return [];
+    }
+  };
+
+  useEffect(() => {
+    const load = async () => {
+      await dispatch(getTransactionDetails('1'));
+    };
+    load();
+    onChangeUserRole(setRole);
+    return stopListeningToUserRoleChange;
+  }, []);
+
+  if (!transaction) {
+    return <div>loading...</div>;
+  }
+
+  return (
+    <>
+      <Card actions={getActions()} title="Transaction Details">
         <Descriptions column={1}>
           <Descriptions.Item label="Transaction ID">
             {transaction.transactionId}
@@ -81,10 +102,13 @@ export const TransactionDetails = () => {
             {transaction.status}
           </Descriptions.Item>
         </Descriptions>
+        <p>
+          <b>*For demonstration events from the host, change the user role.</b>
+        </p>
       </Card>
       <Modal
         title="Edit transactions"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleEdit}
         onCancel={() => setIsModalVisible(false)}
       >
