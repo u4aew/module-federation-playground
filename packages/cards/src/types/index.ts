@@ -11,17 +11,16 @@ export type CardDetails = {
   linkedAccount: string;
   recentTransactions: Transaction[];
 };
+export type Transaction = {
+  date: string;
+  amount: string;
+  currency: string;
+  description: string;
+};
 
 export type CardInfo = {
   id: number;
   pan: string;
   expiry: string;
   name: string;
-};
-
-export type Transaction = {
-  date: string;
-  amount: string;
-  currency: string;
-  description: string;
 };
