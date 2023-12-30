@@ -50,8 +50,10 @@ jobs:
       - name: Build Shared Modules
         run: yarn workspace shared build
 
-      - name: Test Shared Modules
-        run: yarn workspace shared test
+      - name: Test and Build Cards
+        run: |
+          yarn workspace cards test
+          yarn workspace cards build
 
       - name: Archive Build Artifacts
         uses: actions/upload-artifact@v2
