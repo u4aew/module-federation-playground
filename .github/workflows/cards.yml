@@ -25,23 +25,23 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-build-shared:
-  needs: setup
-  runs-on: ubuntu-latest
+  build-shared:
+    needs: setup
+    runs-on: ubuntu-latest
 
-  steps:
-    - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-    - name: Install Root Dependencies
-      run: yarn install
+      - name: Install Root Dependencies
+        run: yarn install
 
-    - name: Build Shared
-      run: yarn workspace shared build
+      - name: Build Shared
+        run: yarn workspace shared build
 
   test-cards:
     needs: setup
