@@ -11,8 +11,6 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
-    outputs:
-      cache-key: ${{ steps.cache-keys.outputs.key }}
 
     steps:
       - uses: actions/checkout@v2
@@ -21,6 +19,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install Dependencies
         run: yarn install
@@ -37,14 +41,18 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install Root Dependencies
-        run: yarn install
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
 
       - name: Build Shared
         run: yarn workspace shared build
 
   test-cards:
-    needs: setup
+    needs: build-shared
     runs-on: ubuntu-latest
 
     steps:
@@ -55,18 +63,27 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install Root Dependencies
-        run: yarn install
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ needs.setup.outputs.cache-key }}
 
       - name: Test Cards
         run: yarn workspace cards test
 
   build-cards:
-    needs: [setup, build-shared, test-cards]
+    needs: test-cards
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ needs.setup.outputs.cache-key }}
 
       - name: Build Cards
         run: yarn workspace cards build
