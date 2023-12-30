@@ -65,7 +65,6 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     /** getTransactions */
-
     builder.addCase(getTransactions.pending, (state) => {
       state.fetchingState = EnumFetch.Pending;
       state.error = null;
@@ -80,7 +79,6 @@ const slice = createSlice({
     });
 
     /** getDetailsTransaction */
-
     builder.addCase(getTransactionDetails.pending, (state) => {
       state.fetchingState = EnumFetch.Pending;
       state.error = null;

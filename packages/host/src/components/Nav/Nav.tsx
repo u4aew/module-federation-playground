@@ -1,5 +1,4 @@
 import React from 'react';
-import cards from './icons/cards.svg';
 import { Menu } from 'antd';
 import {
   UploadOutlined,

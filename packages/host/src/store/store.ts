@@ -18,7 +18,6 @@ const loadFromWindow = (): RootState | undefined => {
   }
 };
 
-// Создание хранилища с подключенным middleware
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
