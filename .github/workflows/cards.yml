@@ -26,6 +26,9 @@ jobs:
       - name: Build Shared
         run: yarn workspace shared build
 
+      - name: Test Cards
+        run: yarn workspace cards test
+
       - name: Build Cards
         run: yarn workspace cards build
 

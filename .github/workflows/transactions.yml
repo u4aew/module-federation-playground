@@ -26,6 +26,9 @@ jobs:
       - name: Build Shared
         run: yarn workspace shared build
 
+      - name: Test Transactions
+        run: yarn workspace transactions test
+
       - name: Build Transactions
         run: yarn workspace transactions build
 
