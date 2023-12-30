@@ -1,13 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import config from '../../../config';
+import { CardDetails, CardInfo } from '@modules/cards/types';
+import { EnumFetch } from 'shared';
 import axios from 'axios';
-
-export enum Fetch {
-  Idle = 'idle',
-  Pending = 'pending',
-  Fulfilled = 'fulfilled',
-  Rejected = 'rejected',
-}
 
 export interface ResponseError {
   code?: string;
@@ -16,29 +11,23 @@ export interface ResponseError {
 }
 
 interface SliceState {
-  list: string[] | null;
-  details: null | object;
-  fetchingState: Fetch;
+  list: CardInfo[] | null;
+  details: null | CardDetails;
+  fetchingState: EnumFetch;
   error: ResponseError | null;
 }
 
 const initialState: SliceState = {
   list: null,
   details: null,
-  fetchingState: Fetch.Idle,
+  fetchingState: EnumFetch.Idle,
   error: null,
 };
 
 /**
  * Получить информацию о картах
  */
-export const getCards = createAsyncThunk<
-  // Return type of the payload creator
-  any,
-  // First argument to the payload creator
-  string,
-  any
->('modules/cards', async () => {
+export const getCards = createAsyncThunk('modules/cards', async () => {
   try {
     const { data } = await axios.get(config.routes.cards);
     return data;
@@ -75,33 +64,30 @@ const slice = createSlice({
     /** getCards */
 
     builder.addCase(getCards.pending, (state) => {
-      state.fetchingState = Fetch.Pending;
+      state.fetchingState = EnumFetch.Pending;
       state.error = null;
     });
     builder.addCase(getCards.fulfilled, (state, action) => {
       state.list = action.payload;
-      state.fetchingState = Fetch.Fulfilled;
+      state.fetchingState = EnumFetch.Fulfilled;
     });
     builder.addCase(getCards.rejected, (state, action) => {
-      state.fetchingState = Fetch.Rejected;
-      // @ts-ignore
+      state.fetchingState = EnumFetch.Rejected;
       state.error = action.error;
     });
 
     /** getCardsDetails */
 
     builder.addCase(getCardDetails.pending, (state) => {
-      state.fetchingState = Fetch.Pending;
+      state.fetchingState = EnumFetch.Pending;
       state.error = null;
     });
     builder.addCase(getCardDetails.fulfilled, (state, action) => {
       state.details = action.payload;
-      state.fetchingState = Fetch.Fulfilled;
+      state.fetchingState = EnumFetch.Fulfilled;
     });
-    builder.addCase(getCardDetails.rejected, (state, action) => {
-      state.fetchingState = Fetch.Rejected;
-      // @ts-ignore
-      state.error = action.error;
+    builder.addCase(getCardDetails.rejected, (state) => {
+      state.fetchingState = EnumFetch.Rejected;
     });
   },
 });

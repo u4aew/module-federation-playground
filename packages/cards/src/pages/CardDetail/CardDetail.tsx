@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCardDetails } from '@modules/cards/store/features/cards/slice';
 import { AppDispatch } from '@modules/cards/store/store';
 import { userCardsDetailsSelector } from '@modules/cards/store/features/cards/selectors';
+import { Transaction } from '@modules/cards/types';
 import {
   USER_ROLE,
   EnumRole,
@@ -90,9 +91,8 @@ export const CardDetail = () => {
           header={<div>Recent Transactions</div>}
           bordered
           dataSource={cardDetails.recentTransactions}
-          renderItem={(item) => (
+          renderItem={(item: Transaction) => (
             <List.Item>
-              {/*@ts-ignore*/}
               {item.date} - {item.amount} {item.currency} - {item.description}
             </List.Item>
           )}

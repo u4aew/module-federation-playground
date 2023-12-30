@@ -4,6 +4,13 @@ export enum EnumRole {
   manager = 'MANAGER',
 }
 
+export enum EnumFetch {
+  Idle = 'idle',
+  Pending = 'pending',
+  Fulfilled = 'fulfilled',
+  Rejected = 'rejected',
+}
+
 export type TypeUser = {
   id: number;
   theme: string;

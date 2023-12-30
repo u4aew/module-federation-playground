@@ -12,8 +12,6 @@ const App = (): JSX.Element => {
   useEffect(() => {
     const load = async () => {
       await dispatch(getTransactions());
-      const event = new Event('loadTransactions');
-      window.dispatchEvent(event);
     };
     load();
   }, []);
