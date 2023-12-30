@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Layout, Button, Row, Col, Select, theme } from 'antd';
-const { Header, Sider, Content, Footer } = Layout;
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import Nav from '@host/components/Nav/Nav';
 import { userSelector } from '@host/store/features/common/selectors';
@@ -9,6 +8,7 @@ import { setUserRole } from '@host/store/features/common/slice';
 import { AppDispatch } from '@host/store/store';
 
 const { Option } = Select;
+const { Header, Sider, Content, Footer } = Layout;
 
 export const MainLayout = ({ children }) => {
   const dispatch: AppDispatch = useDispatch();
