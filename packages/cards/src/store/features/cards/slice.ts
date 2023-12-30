@@ -62,7 +62,6 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     /** getCards */
-
     builder.addCase(getCards.pending, (state) => {
       state.fetchingState = SharedTypes.EnumFetch.Pending;
       state.error = null;
@@ -77,7 +76,6 @@ const slice = createSlice({
     });
 
     /** getCardsDetails */
-
     builder.addCase(getCardDetails.pending, (state) => {
       state.fetchingState = SharedTypes.EnumFetch.Pending;
       state.error = null;
