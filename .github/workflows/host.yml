@@ -1,4 +1,4 @@
-name: Build Host Project
+name: Build and Deploy Host Project
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - 'packages/host/**'
 
 jobs:
-  build:
+  install-dependencies:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,22 +20,70 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+
       - name: Install Dependencies
         run: yarn install
 
-      - name: Build Shared
+  test-and-build:
+    needs: install-dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Build Shared Modules
         run: yarn workspace shared build
 
-      - name: Test Host
-        run: yarn workspace host test
-
-      - name: Build Host
-        run: yarn workspace host build
-
-      - name: Copy files to a temporary directory
+      - name: Test and Build Host
         run: |
-          mkdir microfrontend
-          cp -R packages/host/dist/* microfrontend/
+          yarn workspace host test
+          yarn workspace host build
+
+      - name: Archive Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: shared-artifacts
+          path: packages/host/dist
+
+  deploy-host:
+    needs: test-and-build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: shared-artifacts
+          path: ./host
 
       - name: Deploy to Server
         uses: appleboy/scp-action@master
@@ -43,5 +91,5 @@ jobs:
           host: 138.68.115.124
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "microfrontend/*"
-          target: "/usr/share/nginx/html"
+          source: 'host/*'
+          target: '/usr/share/nginx/html'
