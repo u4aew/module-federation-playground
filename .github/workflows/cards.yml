@@ -25,15 +25,23 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-  build-shared:
-    needs: setup
-    runs-on: ubuntu-latest
+build-shared:
+  needs: setup
+  runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
+  steps:
+    - uses: actions/checkout@v2
 
-      - name: Build Shared
-        run: yarn workspace shared build
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install Root Dependencies
+      run: yarn install
+
+    - name: Build Shared
+      run: yarn workspace shared build
 
   test-cards:
     needs: setup
@@ -79,5 +87,5 @@ jobs:
           host: 138.68.115.124
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "cards/*"
-          target: "/usr/share/nginx/html/microfrontend/apps"
+          source: 'cards/*'
+          target: '/usr/share/nginx/html/microfrontend/apps'
