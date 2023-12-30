@@ -42,6 +42,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Root Dependencies
+        run: yarn install
+
       - name: Test Cards
         run: yarn workspace cards test
 
