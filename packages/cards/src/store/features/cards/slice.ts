@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import config from '../../../config';
 import { CardDetails, CardInfo } from '@modules/cards/types';
-import { EnumFetch } from 'shared';
+import { types as SharedTypes } from 'shared';
 import axios from 'axios';
 
 export interface ResponseError {
@@ -13,14 +13,14 @@ export interface ResponseError {
 interface SliceState {
   list: CardInfo[] | null;
   details: null | CardDetails;
-  fetchingState: EnumFetch;
+  fetchingState: SharedTypes.EnumFetch;
   error: ResponseError | null;
 }
 
 const initialState: SliceState = {
   list: null,
   details: null,
-  fetchingState: EnumFetch.Idle,
+  fetchingState: SharedTypes.EnumFetch.Idle,
   error: null,
 };
 
@@ -64,30 +64,30 @@ const slice = createSlice({
     /** getCards */
 
     builder.addCase(getCards.pending, (state) => {
-      state.fetchingState = EnumFetch.Pending;
+      state.fetchingState = SharedTypes.EnumFetch.Pending;
       state.error = null;
     });
     builder.addCase(getCards.fulfilled, (state, action) => {
       state.list = action.payload;
-      state.fetchingState = EnumFetch.Fulfilled;
+      state.fetchingState = SharedTypes.EnumFetch.Fulfilled;
     });
     builder.addCase(getCards.rejected, (state, action) => {
-      state.fetchingState = EnumFetch.Rejected;
+      state.fetchingState = SharedTypes.EnumFetch.Rejected;
       state.error = action.error;
     });
 
     /** getCardsDetails */
 
     builder.addCase(getCardDetails.pending, (state) => {
-      state.fetchingState = EnumFetch.Pending;
+      state.fetchingState = SharedTypes.EnumFetch.Pending;
       state.error = null;
     });
     builder.addCase(getCardDetails.fulfilled, (state, action) => {
       state.details = action.payload;
-      state.fetchingState = EnumFetch.Fulfilled;
+      state.fetchingState = SharedTypes.EnumFetch.Fulfilled;
     });
     builder.addCase(getCardDetails.rejected, (state) => {
-      state.fetchingState = EnumFetch.Rejected;
+      state.fetchingState = SharedTypes.EnumFetch.Rejected;
     });
   },
 });

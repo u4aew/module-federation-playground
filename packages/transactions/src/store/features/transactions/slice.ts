@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import config from '@modules/transactions/config';
-import { EnumFetch } from 'shared';
+import { types as SharedTypes } from 'shared';
 import { Transaction, TransactionDetails } from '@modules/transactions/types';
 import axios from 'axios';
 
@@ -13,14 +13,14 @@ export interface ResponseError {
 interface SliceState {
   list: TransactionDetails[] | null;
   details: null | Transaction;
-  fetchingState: EnumFetch;
+  fetchingState: SharedTypes.EnumFetch;
   error: ResponseError | null;
 }
 
 const initialState: SliceState = {
   list: null,
   details: null,
-  fetchingState: EnumFetch.Idle,
+  fetchingState: SharedTypes.EnumFetch.Idle,
   error: null,
 };
 
@@ -66,29 +66,29 @@ const slice = createSlice({
   extraReducers: (builder) => {
     /** getTransactions */
     builder.addCase(getTransactions.pending, (state) => {
-      state.fetchingState = EnumFetch.Pending;
+      state.fetchingState = SharedTypes.EnumFetch.Pending;
       state.error = null;
     });
     builder.addCase(getTransactions.fulfilled, (state, action) => {
       state.list = action.payload;
-      state.fetchingState = EnumFetch.Fulfilled;
+      state.fetchingState = SharedTypes.EnumFetch.Fulfilled;
     });
     builder.addCase(getTransactions.rejected, (state, action) => {
-      state.fetchingState = EnumFetch.Rejected;
+      state.fetchingState = SharedTypes.EnumFetch.Rejected;
       state.error = action.error;
     });
 
     /** getDetailsTransaction */
     builder.addCase(getTransactionDetails.pending, (state) => {
-      state.fetchingState = EnumFetch.Pending;
+      state.fetchingState = SharedTypes.EnumFetch.Pending;
       state.error = null;
     });
     builder.addCase(getTransactionDetails.fulfilled, (state, action) => {
       state.details = action.payload;
-      state.fetchingState = EnumFetch.Fulfilled;
+      state.fetchingState = SharedTypes.EnumFetch.Fulfilled;
     });
     builder.addCase(getTransactionDetails.rejected, (state) => {
-      state.fetchingState = EnumFetch.Rejected;
+      state.fetchingState = SharedTypes.EnumFetch.Rejected;
     });
   },
 });

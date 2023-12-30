@@ -5,12 +5,10 @@ import { getCardDetails } from '@modules/cards/store/features/cards/slice';
 import { AppDispatch } from '@modules/cards/store/store';
 import { userCardsDetailsSelector } from '@modules/cards/store/features/cards/selectors';
 import { Transaction } from '@modules/cards/types';
-import {
-  USER_ROLE,
-  EnumRole,
-  onChangeUserRole,
-  stopListeningToUserRoleChange,
-} from 'shared';
+import { events, variables, types } from 'shared';
+const { EnumRole } = types;
+const { USER_ROLE } = variables;
+const { onChangeUserRole, stopListeningToUserRoleChange } = events;
 
 export const CardDetail = () => {
   const dispatch: AppDispatch = useDispatch();

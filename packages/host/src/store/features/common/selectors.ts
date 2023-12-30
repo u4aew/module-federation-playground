@@ -1,11 +1,11 @@
 import { Fetch } from '@host/types';
-import { TypeUser } from 'shared';
+import { types as SharedTypes } from 'shared';
 
 /**
  * Info about user
  * @param state
  */
-export const userSelector = (state): TypeUser => state.common.user;
+export const userSelector = (state): SharedTypes.TypeUser => state.common.user;
 
 /**
  * Has request to user info

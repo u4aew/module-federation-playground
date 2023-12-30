@@ -7,8 +7,8 @@ import Nav from '@host/components/Nav/Nav';
 import { userSelector } from '@host/store/features/common/selectors';
 import { setUserRole } from '@host/store/features/common/slice';
 import { AppDispatch } from '@host/store/store';
-import { emitChangeUserRole } from 'shared';
-
+import { events } from 'shared';
+const { emitChangeUserRole } = events;
 const { Option } = Select;
 
 export const MainLayout = ({ children }) => {

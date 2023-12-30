@@ -4,12 +4,11 @@ import { AppDispatch } from '@modules/transactions/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Descriptions, Button, Modal, notification } from 'antd';
 import { userTransactionDetailsSelector } from '@modules/transactions/store/features/transactions/selectors';
-import {
-  EnumRole,
-  onChangeUserRole,
-  stopListeningToUserRoleChange,
-  USER_ROLE,
-} from 'shared';
+import { types, events, variables } from 'shared';
+
+const { EnumRole } = types;
+const { USER_ROLE } = variables;
+const { onChangeUserRole, stopListeningToUserRoleChange } = events;
 
 export const TransactionDetails = () => {
   const dispatch: AppDispatch = useDispatch();
