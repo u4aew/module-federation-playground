@@ -27,7 +27,7 @@ jobs:
         run: yarn workspace shared build
 
       - name: Test Host
-        run: yarn workspace hosts test
+        run: yarn workspace host test
 
       - name: Build Host
         run: yarn workspace host build

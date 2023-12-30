@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start:cards": "webpack serve --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "test": "jest test"
   },
   "devDependencies": {
     "@babel/core": "^7.23.5",
