@@ -1,4 +1,4 @@
-name: Build Cards Project
+name: Build and Deploy Cards Project
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - 'packages/cards/**'
 
 jobs:
-  build-and-test:
+  install-dependencies:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +29,47 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
+  build-and-test-shared:
+    needs: install-dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+
       - name: Build Shared Modules
         run: yarn workspace shared build
 
-      - name: Run Tests
-        run: yarn workspace cards test
+      - name: Test Shared Modules
+        run: yarn workspace shared test
+
+  deploy-cards:
+    needs: build-and-test-shared
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
 
       - name: Build Cards
         run: yarn workspace cards build
