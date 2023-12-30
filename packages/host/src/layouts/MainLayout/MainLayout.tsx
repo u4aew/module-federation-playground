@@ -52,7 +52,7 @@ export const MainLayout = ({ children }) => {
                 <b>NAME</b>: {user?.name}
                 <Select
                   defaultValue={user?.role}
-                  style={{ width: 120, marginLeft: 10 }}
+                  style={{ width: 110, marginLeft: 10, textAlign: 'left' }}
                   onChange={handleRoleChange}
                 >
                   <Option value="MANAGER">Manager</Option>

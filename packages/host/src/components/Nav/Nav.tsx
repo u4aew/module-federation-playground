@@ -1,9 +1,9 @@
 import React from 'react';
 import { Menu } from 'antd';
 import {
-  UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  CreditCardOutlined,
+  TransactionOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,12 +28,12 @@ const Nav = (): JSX.Element => {
         },
         {
           key: '/cards',
-          icon: <VideoCameraOutlined />,
+          icon: <CreditCardOutlined />,
           label: 'Cards',
         },
         {
           key: '/transactions',
-          icon: <UploadOutlined />,
+          icon: <TransactionOutlined />,
           label: 'Transactions',
         },
       ]}
