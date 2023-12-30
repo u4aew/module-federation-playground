@@ -9,8 +9,10 @@ on:
       - 'packages/cards/**'
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
+    outputs:
+      cache-key: ${{ steps.cache-keys.outputs.key }}
 
     steps:
       - uses: actions/checkout@v2
@@ -23,11 +25,32 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
+  build-shared:
+    needs: setup
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
       - name: Build Shared
         run: yarn workspace shared build
 
+  test-cards:
+    needs: setup
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
       - name: Test Cards
         run: yarn workspace cards test
+
+  build-cards:
+    needs: [setup, build-shared, test-cards]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
 
       - name: Build Cards
         run: yarn workspace cards build
@@ -37,6 +60,11 @@ jobs:
           mkdir cards
           cp -R packages/cards/dist/* cards/
 
+  deploy:
+    needs: build-cards
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Deploy to Server
         uses: appleboy/scp-action@master
         with:
