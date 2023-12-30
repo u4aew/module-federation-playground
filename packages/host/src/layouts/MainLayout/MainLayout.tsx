@@ -8,7 +8,7 @@ import { userSelector } from '@host/store/features/common/selectors';
 import { setUserRole } from '@host/store/features/common/slice';
 import { AppDispatch } from '@host/store/store';
 import { events } from 'shared';
-const { emitChangeUserRole } = events;
+
 const { Option } = Select;
 
 export const MainLayout = ({ children }) => {
@@ -20,9 +20,6 @@ export const MainLayout = ({ children }) => {
   } = theme.useToken();
 
   const handleRoleChange = (value) => {
-    // send to microfrontend
-    emitChangeUserRole(value);
-    // send to backend
     dispatch(setUserRole(value));
   };
 

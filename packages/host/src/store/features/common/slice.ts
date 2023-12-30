@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import config from '@host/config';
-import { types as SharedTypes } from 'shared';
+import { events, types as SharedTypes } from 'shared';
 import axios from 'axios';
-
+const { emitChangeUserRole } = events;
 export interface ResponseError {
   code?: string;
   description?: string;
@@ -44,6 +44,7 @@ const slice = createSlice({
     setUserRole: (state, action: PayloadAction<SharedTypes.EnumRole>) => {
       if (state.user) {
         state.user.role = action.payload;
+        emitChangeUserRole(action.payload);
       }
     },
   },
