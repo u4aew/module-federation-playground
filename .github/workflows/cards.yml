@@ -50,6 +50,11 @@ jobs:
       - name: Build Shared Modules
         run: yarn workspace shared build
 
+      - name: Test and Build Cards
+        run: |
+          yarn workspace cards test
+          yarn workspace cards build
+
   deploy-cards:
     needs: test-and-build
     runs-on: ubuntu-latest
@@ -67,9 +72,6 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Build Cards
-        run: yarn workspace cards build
 
       - name: Copy files to a temporary directory
         run: |
