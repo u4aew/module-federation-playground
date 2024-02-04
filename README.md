@@ -1,6 +1,7 @@
 # Banking Application with Module Federation
 
 This banking application is a showcase of Module Federation, a cutting-edge feature from Webpack 5, which allows for a scalable, flexible microfrontend architecture. Designed specifically for the finance sector, this application is divided into several independent modules, each with its unique functionality and managed state.
+More details in this [article](https://dev.to/u4aew/creating-a-web-application-using-micro-frontends-and-module-federation-11kk).
 
 ## Application Sections:
 
