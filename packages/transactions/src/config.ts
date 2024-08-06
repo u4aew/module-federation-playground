@@ -1,4 +1,4 @@
-const MAIN_PATH = 'https://microfrontend.fancy-app.site/api';
+const MAIN_PATH = 'https://mock.fancy-app.site/api/micro';
 
 const config = {
   routes: {
