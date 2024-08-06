@@ -22,7 +22,7 @@ const initialState: SliceState = {
 };
 
 /**
- * Get user info
+ * Get user
  */
 export const getUserInfo = createAsyncThunk(
   'host/user',
